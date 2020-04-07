@@ -19,6 +19,9 @@ public class Lamp : MonoBehaviour
 
     [ColorUsageAttribute(true, true)]
     public Color emissionColor;
+
+    [ColorUsageAttribute(true, true)]
+    public Color emissionColorBlink;
     public AnimationCurve blinkCurve;
     public bool isDetroyed = true;
     public bool isBlinkAtStart = false;
@@ -284,7 +287,7 @@ public class Lamp : MonoBehaviour
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
                     float abjustedIntensity = emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", firstlampBlinkColor);
+                    baseMaterial.SetColor("_EmissionColor", emissionColorBlink);
                     baseMaterial.SetColor("_BaseColor", firstlampBlinkColor);
                     
 
@@ -357,7 +360,7 @@ public class Lamp : MonoBehaviour
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
                     float abjustedIntensity = emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", firstlampBlinkColor);
+                    baseMaterial.SetColor("_EmissionColor", emissionColorBlink);
                     baseMaterial.SetColor("_BaseColor", firstlampBlinkColor);
                     yield return new WaitForSeconds(.2f);
 
@@ -414,7 +417,7 @@ public class Lamp : MonoBehaviour
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
                     float abjustedIntensity = emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", firstlampBlinkColor);
+                    baseMaterial.SetColor("_EmissionColor", emissionColorBlink);
                     baseMaterial.SetColor("_BaseColor", firstlampBlinkColor);
 
                 }
