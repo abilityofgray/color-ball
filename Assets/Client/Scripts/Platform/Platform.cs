@@ -78,7 +78,7 @@ public class Platform : MonoBehaviour
     {
 
         timer = Time.deltaTime;
-        //emission = Mathf.PingPong(Time.time, 0.85f);
+        //_emission = Mathf.PingPong(Time.time, 0.85f);
         emission = blinkAction.Evaluate(Time.time);
         Debug.Log(emission);
         //
@@ -178,7 +178,7 @@ public class Platform : MonoBehaviour
 
 
         PlayAudioContact();
-        lamp.lampBrokeParticle.PlayBroke(this.transform.position);
+        lamp.LampBrokeParticle.PlayBroke(this.transform.position);
 
 
         if (lampObject)

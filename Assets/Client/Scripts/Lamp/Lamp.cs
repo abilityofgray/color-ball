@@ -5,24 +5,27 @@ using UnityEngine;
 public class Lamp : MonoBehaviour
 {
 
-    public List<Platform> lamps = new List<Platform>();
+    public List<Platform> Lamps = new List<Platform>();
     // Start is called before the first frame update
 
 
-    float blinkTimer = 0;
-    float emission = 0;
+    float _blinkTimer = 0;
+    float _emission = 0;
 
     [Header ("Lamp Platform Settings")]
-    public Color lampColor;
-    public Color firstlampBlinkColor;
-    public Color secondLampBlinkColor;
+    public Color LampColor;
+    public Color FirstlampBlinkColor;
 
     [ColorUsageAttribute(true, true)]
-    public Color emissionColor;
+    public Color EmissionColor;
 
+    [Header ("Lamp FinishPlatform Emission Settings")]
     [ColorUsageAttribute(true, true)]
-    public Color emissionColorBlink;
-    public AnimationCurve blinkCurve;
+    public Color LoosseLampBlinkEmissionColor;
+    [ColorUsageAttribute(true, true)]
+    public Color WinLampEmissionColorBlink;
+
+    public AnimationCurve BlinkCurve;
     public bool isDetroyed = true;
     public bool isBlinkAtStart = false;
     public bool PlatformNotGainPoint = false;
@@ -34,11 +37,11 @@ public class Lamp : MonoBehaviour
 
     public int PointCost = 0;
 
-    public LampBrokenParticle lampBrokeParticle;
-    public ParticleSystem finishwinConfetee;
+    public LampBrokenParticle LampBrokeParticle;
+    public ParticleSystem FinishWinConfetee;
 
-    MeshRenderer meshRenderer;
-    Platform platformObject;
+    MeshRenderer _meshRenderer;
+    Platform _platformObject;
 
     public void LampInit()
     {
@@ -48,46 +51,46 @@ public class Lamp : MonoBehaviour
 
             if (transform.GetChild(i).TryGetComponent<MeshRenderer>(out MeshRenderer meshRendererTemp)) {
 
-                meshRenderer = meshRendererTemp;
+                _meshRenderer = meshRendererTemp;
 
             }
 
             if (transform.GetChild(i).TryGetComponent<Platform>(out Platform platformTemp)) {
 
-                platformObject = platformTemp;
-                platformObject.InitPlatform();
+                _platformObject = platformTemp;
+                _platformObject.InitPlatform();
 
             }
 
 
             
 
-            meshRenderer.material.SetColor("_BaseColor", lampColor);
-            meshRenderer.material.SetColor("_EmissionColor", emissionColor);
+            _meshRenderer.material.SetColor("_BaseColor", LampColor);
+            _meshRenderer.material.SetColor("_EmissionColor", EmissionColor);
 
-            lamps.Add(platformObject);
+            Lamps.Add(_platformObject);
             //Debug.Log(transform.childCount);
             //transform.GetChild(i).GetComponent<Platform>().SetPointCost = PointCost;
            
             if (isDetroyed)
             {
 
-                platformObject.isDestroy = true;
+                _platformObject.isDestroy = true;
 
-                platformObject.SetPointCost = PointCost;
+                _platformObject.SetPointCost = PointCost;
 
                 
 
             }
             else {
 
-                platformObject.isDestroy = false;
+                _platformObject.isDestroy = false;
 
             }
 
             if (isFinish) {
 
-                platformObject.FinishPlatfrom = true;
+                _platformObject.FinishPlatfrom = true;
                 
 
             }
@@ -159,9 +162,9 @@ public class Lamp : MonoBehaviour
 
     }
 
-    public void StartEndlessBlinkAllLamp(Color color) {
+    public void StartEndlessBlinkAllLamp(Color color, Color emiColor) {
 
-        StartCoroutine(EndlesBlinkAllLamp(color));
+        StartCoroutine(EndlesBlinkAllLamp(color, emiColor));
 
     }
 
@@ -174,7 +177,7 @@ public class Lamp : MonoBehaviour
 
     public void ResetToDefaultColor() {
 
-        foreach (Platform pl in lamps)
+        foreach (Platform pl in Lamps)
         {
 
             if (pl.GetMeshRenderer)
@@ -182,8 +185,8 @@ public class Lamp : MonoBehaviour
 
                 Material baseMaterial = pl.GetMeshRenderer.material;
 
-                baseMaterial.SetColor("_EmissionColor", emissionColor);
-                baseMaterial.SetColor("_BaseColor", lampColor);
+                baseMaterial.SetColor("_EmissionColor", EmissionColor);
+                baseMaterial.SetColor("_BaseColor", LampColor);
 
             }
 
@@ -191,22 +194,22 @@ public class Lamp : MonoBehaviour
 
     }
     
-    IEnumerator EndlesBlinkAllLamp(Color color) {
+    IEnumerator EndlesBlinkAllLamp(Color color, Color emiColor) {
 
-        blinkTimer = 0;
+        _blinkTimer = 0;
 
         //Debug.Log("EndlessBlinkLamp");
 
         while (true)
         {
 
-            emission = blinkCurve.Evaluate(Time.time);
-            blinkTimer += Time.deltaTime;
+            _emission = BlinkCurve.Evaluate(Time.time);
+            _blinkTimer += Time.deltaTime;
             
             //yield return null;
             yield return new WaitForSeconds(.2f);
 
-            foreach (Platform pl in lamps)
+            foreach (Platform pl in Lamps)
             {
 
                 if (pl.GetMeshRenderer)
@@ -215,9 +218,9 @@ public class Lamp : MonoBehaviour
                     Material baseMaterial = pl.GetMeshRenderer.material;
 
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
-                    float abjustedIntensity = emission - 0.4169F;
+                    float abjustedIntensity = _emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", color);
+                    baseMaterial.SetColor("_EmissionColor", EmissionColor);
                     baseMaterial.SetColor("_BaseColor", color);
 
                 }
@@ -227,7 +230,7 @@ public class Lamp : MonoBehaviour
             
             yield return new WaitForSeconds(.55f);
 
-            foreach (Platform pl in lamps)
+            foreach (Platform pl in Lamps)
             {
 
                 if (pl.GetMeshRenderer)
@@ -237,10 +240,10 @@ public class Lamp : MonoBehaviour
 
                     Color baseColor2 = baseMaterial.GetColor("_BaseColor");
 
-                    float abjustedIntensity2 = emission - 0.4169F;
+                    float abjustedIntensity2 = _emission - 0.4169F;
                     baseColor2 *= Mathf.Pow(1.5F, abjustedIntensity2);
-                    baseMaterial.SetColor("_EmissionColor", emissionColor);
-                    baseMaterial.SetColor("_BaseColor", lampColor);
+                    baseMaterial.SetColor("_EmissionColor", emiColor);
+                    baseMaterial.SetColor("_BaseColor", LampColor);
                     
                 }
 
@@ -271,9 +274,9 @@ public class Lamp : MonoBehaviour
         while (true)
         {
             
-            emission = blinkCurve.Evaluate(Time.time);
+            _emission = BlinkCurve.Evaluate(Time.time);
             
-            foreach (Platform pl in lamps)
+            foreach (Platform pl in Lamps)
             {
 
                 yield return new WaitForSeconds(.2f);
@@ -285,10 +288,10 @@ public class Lamp : MonoBehaviour
                     Material baseMaterial = pl.GetMeshRenderer.material;
 
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
-                    float abjustedIntensity = emission - 0.4169F;
+                    float abjustedIntensity = _emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", emissionColorBlink);
-                    baseMaterial.SetColor("_BaseColor", firstlampBlinkColor);
+                    baseMaterial.SetColor("_EmissionColor", WinLampEmissionColorBlink);
+                    baseMaterial.SetColor("_BaseColor", FirstlampBlinkColor);
                     
 
                     
@@ -296,7 +299,7 @@ public class Lamp : MonoBehaviour
                 
             }
 
-            foreach (Platform pl in lamps)
+            foreach (Platform pl in Lamps)
             {
 
                 
@@ -308,10 +311,10 @@ public class Lamp : MonoBehaviour
 
                     Color baseColor2 = baseMaterial.GetColor("_BaseColor");
 
-                    float abjustedIntensity2 = emission - 0.4169F;
+                    float abjustedIntensity2 = _emission - 0.4169F;
                     baseColor2 *= Mathf.Pow(1.5F, abjustedIntensity2);
-                    baseMaterial.SetColor("_EmissionColor", emissionColor);
-                    baseMaterial.SetColor("_BaseColor", lampColor);
+                    baseMaterial.SetColor("_EmissionColor", EmissionColor);
+                    baseMaterial.SetColor("_BaseColor", LampColor);
                     yield return new WaitForSeconds(.2f);
 
                 }
@@ -341,15 +344,15 @@ public class Lamp : MonoBehaviour
     {
 
         
-        blinkTimer = 0;
+        _blinkTimer = 0;
 
-        while (blinkTimer < 2.5f)
+        while (_blinkTimer < 2.5f)
         {
             Debug.Log("Blink");
-            emission = blinkCurve.Evaluate(Time.time);
-            blinkTimer += Time.deltaTime;
+            _emission = BlinkCurve.Evaluate(Time.time);
+            _blinkTimer += Time.deltaTime;
 
-            foreach (Platform pl in lamps) {
+            foreach (Platform pl in Lamps) {
 
                 //Debug.Log(lI);
                 if (pl.gameObject.GetComponent<MeshRenderer>())
@@ -358,19 +361,19 @@ public class Lamp : MonoBehaviour
                     Material baseMaterial = pl.gameObject.GetComponent<MeshRenderer>().material;
                     
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
-                    float abjustedIntensity = emission - 0.4169F;
+                    float abjustedIntensity = _emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", emissionColorBlink);
-                    baseMaterial.SetColor("_BaseColor", firstlampBlinkColor);
+                    baseMaterial.SetColor("_EmissionColor", WinLampEmissionColorBlink);
+                    baseMaterial.SetColor("_BaseColor", FirstlampBlinkColor);
                     yield return new WaitForSeconds(.2f);
 
                     
                     Color baseColor2 = baseMaterial.GetColor("_BaseColor");
                     
-                    float abjustedIntensity2 = emission - 0.4169F;
+                    float abjustedIntensity2 = _emission - 0.4169F;
                     baseColor2 *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", emissionColor);
-                    baseMaterial.SetColor("_BaseColor", lampColor);
+                    baseMaterial.SetColor("_EmissionColor", EmissionColor);
+                    baseMaterial.SetColor("_BaseColor", LampColor);
                     yield return new WaitForSeconds(.2f);
 
                 }
@@ -402,10 +405,10 @@ public class Lamp : MonoBehaviour
         while (true)
         {
 
-            emission = blinkCurve.Evaluate(Time.time);
-            blinkTimer += Time.deltaTime;
+            _emission = BlinkCurve.Evaluate(Time.time);
+            _blinkTimer += Time.deltaTime;
 
-            foreach (Platform pl in lamps)
+            foreach (Platform pl in Lamps)
             {
 
                 if (pl.GetMeshRenderer)
@@ -415,10 +418,10 @@ public class Lamp : MonoBehaviour
                     Material baseMaterial = pl.GetMeshRenderer.material;
 
                     Color baseColor = baseMaterial.GetColor("_BaseColor");
-                    float abjustedIntensity = emission - 0.4169F;
+                    float abjustedIntensity = _emission - 0.4169F;
                     baseColor *= Mathf.Pow(1.5F, abjustedIntensity);
-                    baseMaterial.SetColor("_EmissionColor", emissionColorBlink);
-                    baseMaterial.SetColor("_BaseColor", firstlampBlinkColor);
+                    baseMaterial.SetColor("_EmissionColor", WinLampEmissionColorBlink);
+                    baseMaterial.SetColor("_BaseColor", FirstlampBlinkColor);
 
                 }
 
@@ -430,7 +433,7 @@ public class Lamp : MonoBehaviour
 
     public void OptionTextLampReset() {
 
-        foreach (Platform pl in lamps)
+        foreach (Platform pl in Lamps)
         {
 
             if (pl.GetMeshRenderer)
@@ -441,8 +444,8 @@ public class Lamp : MonoBehaviour
 
                 Color baseColor = baseMaterial.GetColor("_BaseColor");
                 
-                baseMaterial.SetColor("_EmissionColor", emissionColor);
-                baseMaterial.SetColor("_BaseColor", lampColor);
+                baseMaterial.SetColor("_EmissionColor", EmissionColor);
+                baseMaterial.SetColor("_BaseColor", LampColor);
 
             }
 
@@ -465,8 +468,8 @@ public class Lamp : MonoBehaviour
             optionsWinLamp.gameObject.transform.LookAt(cameraPos);
             optionsWinLamp.StartColorChangeSegmentBySegment();
             */
-            StartEndlessBlinkAllLamp(firstlampBlinkColor);
-            finishwinConfetee.Play();
+            StartEndlessBlinkAllLamp(FirstlampBlinkColor, WinLampEmissionColorBlink);
+            FinishWinConfetee.Play();
 
 
         }
@@ -480,7 +483,7 @@ public class Lamp : MonoBehaviour
             optionsLooseLamp.gameObject.transform.LookAt(cameraPos);
             optionsLooseLamp.StartColorChangeSegmentBySegment();
             */
-            StartEndlessBlinkAllLamp(secondLampBlinkColor);
+            StartEndlessBlinkAllLamp(FirstlampBlinkColor, LoosseLampBlinkEmissionColor);
 
         } 
         
@@ -490,7 +493,7 @@ public class Lamp : MonoBehaviour
     public void StopAllBlink() {
 
         
-        //StopEndlessBlinkAllLamp(firstlampBlinkColor);
+        //StopEndlessBlinkAllLamp(FirstlampBlinkColor);
         StopAllCoroutines();
         ResetToDefaultColor();
 

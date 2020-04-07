@@ -324,7 +324,7 @@ public class GameController : MonoBehaviour
         foreach (Lamp lm in lamps) {
 
             //TODO somthing
-            //Get finish lamps and in his lamps reset color for oprions text
+            //Get finish Lamps and in his Lamps reset color for oprions text
 
         }
         Time.timeScale = 1;

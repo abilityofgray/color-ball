@@ -9658,9 +9658,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lamps: []
-  lampColor: {r: 0.96724814, g: 0.9811321, b: 0.9680104, a: 1}
-  firstlampBlinkColor: {r: 0.13578582, g: 1, b: 0, a: 1}
-  secondLampBlinkColor: {r: 1, g: 0, b: 0, a: 1}
+  lampColor: {r: 0.52799034, g: 0.990566, b: 0.9679334, a: 1}
+  firstlampBlinkColor: {r: 0.19339623, g: 0.7735849, b: 0.2157778, a: 1}
+  secondLampBlinkColor: {r: 0.8301887, g: 0.49733, b: 0.49733, a: 1}
+  emissionColor: {r: 1.0763046, g: 5.278032, b: 5.2366357, a: 1}
+  emissionColorBlink: {r: 5.152612, g: 0.7048386, b: 0.7048386, a: 1}
   blinkCurve:
     serializedVersion: 2
     m_Curve:

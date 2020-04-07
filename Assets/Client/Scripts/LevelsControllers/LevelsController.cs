@@ -109,7 +109,7 @@ public class LevelsController : MonoBehaviour
         for (int i = 0; i < levelsDict[levelIndex].levelLamps.Count; i++)
         {
 
-            levelsDict[levelIndex].levelLamps[i].lampBrokeParticle = lampBrokenParticleReference;
+            levelsDict[levelIndex].levelLamps[i].LampBrokeParticle = lampBrokenParticleReference;
 
         }
 
@@ -139,7 +139,7 @@ public class LevelsController : MonoBehaviour
             if (lamps[i].isDetroyed && !lamps[i].PlatformNotGainPoint)
             {
 
-                allPointAtCurrentLevel += lamps[i].PointCost * lamps[i].lamps.Count;
+                allPointAtCurrentLevel += lamps[i].PointCost * lamps[i].Lamps.Count;
 
             }
             else if (!lamps[i].isDetroyed && !lamps[i].PlatformNotGainPoint) {
