@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Lamp : MonoBehaviour
 {
 
@@ -42,6 +43,44 @@ public class Lamp : MonoBehaviour
 
     MeshRenderer _meshRenderer;
     Platform _platformObject;
+
+    
+    public void Update()
+    {
+
+
+        LampInitInEditor();
+
+
+
+    }
+
+    void LampInitInEditor() {
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+
+            if (transform.GetChild(i).TryGetComponent<MeshRenderer>(out MeshRenderer meshRendererTemp))
+            {
+
+                _meshRenderer = meshRendererTemp;
+
+            }
+
+            if (transform.GetChild(i).TryGetComponent<Platform>(out Platform platformTemp))
+            {
+
+                _platformObject = platformTemp;
+                _platformObject.InitPlatform();
+
+            }
+
+            _meshRenderer.material.SetColor("_BaseColor", LampColor);
+            _meshRenderer.material.SetColor("_EmissionColor", EmissionColor);
+
+        }
+
+    }
 
     public void LampInit()
     {

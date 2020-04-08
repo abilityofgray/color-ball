@@ -9657,71 +9657,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f61cb07103aa648815f20b88874d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamps: []
-  lampColor: {r: 0.52799034, g: 0.990566, b: 0.9679334, a: 1}
-  firstlampBlinkColor: {r: 0.19339623, g: 0.7735849, b: 0.2157778, a: 1}
-  secondLampBlinkColor: {r: 0.8301887, g: 0.49733, b: 0.49733, a: 1}
-  emissionColor: {r: 1.0763046, g: 5.278032, b: 5.2366357, a: 1}
-  emissionColorBlink: {r: 5.152612, g: 0.7048386, b: 0.7048386, a: 1}
-  blinkCurve:
+  Lamps: []
+  LampColor: {r: 0, g: 0, b: 0, a: 0}
+  FirstlampBlinkColor: {r: 0, g: 0, b: 0, a: 0}
+  EmissionColor: {r: 0.7257152, g: 4.962956, b: 4.194801, a: 1}
+  LoosseLampBlinkEmissionColor: {r: 4.773773, g: 0.78812283, b: 0.78812283, a: 1}
+  WinLampEmissionColorBlink: {r: 0.8321715, g: 2.1226275, b: 0.59073126, a: 1}
+  BlinkCurve:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.34326172
-      value: 3.342575
-      inSlope: -3.7965474
-      outSlope: -3.7965474
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5415039
-      value: -0.016479492
-      inSlope: Infinity
-      outSlope: Infinity
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7734027
-      value: 2.4888902
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.4477048
-      value: 0.0030391216
-      inSlope: Infinity
-      outSlope: Infinity
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 2.3947232
-      value: 2.4921942
-      inSlope: Infinity
-      outSlope: Infinity
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 2.5219643
-      value: -0.05659935
-      inSlope: Infinity
-      outSlope: Infinity
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    m_PreInfinity: 1
-    m_PostInfinity: 0
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
     m_RotationOrder: 4
   isDetroyed: 0
   isBlinkAtStart: 0
@@ -9731,8 +9677,8 @@ MonoBehaviour:
   optionsWinLamp: {fileID: 0}
   optionsLooseLamp: {fileID: 0}
   PointCost: 0
-  lampBrokeParticle: {fileID: 0}
-  finishwinConfetee: {fileID: 1233540532}
+  LampBrokeParticle: {fileID: 0}
+  FinishWinConfetee: {fileID: 1233540532}
 --- !u!1001 &6031977831461399384
 PrefabInstance:
   m_ObjectHideFlags: 0
