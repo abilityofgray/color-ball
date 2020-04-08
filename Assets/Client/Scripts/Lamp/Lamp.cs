@@ -44,7 +44,10 @@ public class Lamp : MonoBehaviour
     MeshRenderer _meshRenderer;
     Platform _platformObject;
 
-    
+
+
+    //Decomment if need defined color in editor
+    #if UNITY_EDITOR 
     public void Update()
     {
 
@@ -54,6 +57,7 @@ public class Lamp : MonoBehaviour
 
 
     }
+    #endif
 
     void LampInitInEditor() {
 
