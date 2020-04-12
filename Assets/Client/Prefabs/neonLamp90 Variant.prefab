@@ -12,7 +12,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 0
-  m_CookingOptions: 30
+  m_CookingOptions: -1
   m_Mesh: {fileID: 2534964839176971238, guid: 6af5d896a3c49ae458ef991f560143b4, type: 3}
 --- !u!82 &1100242356
 AudioSource:
@@ -122,7 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7a0ba25f8e6fb4591b4ddeac2dc837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointPrice: 1
   pointCounterTextUI: {fileID: 0}
   blinkMaterial: {fileID: 0}
   isDestroy: 1

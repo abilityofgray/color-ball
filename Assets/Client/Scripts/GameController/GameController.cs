@@ -20,13 +20,15 @@ public class GameController : MonoBehaviour
     public float pointWinCollectPercent = 65;
 
 
+    [Header ("Dependency Service")]
     [SerializeField]
     private UserPointData userPointData;
     [SerializeField]
     private MainUI mainUI;
     [SerializeField]
     private LevelsController levelsController;
-
+    [SerializeField]
+    private GameAnalytics gameAnalytics;
 
 
     int comboCounter = 0;
@@ -36,6 +38,7 @@ public class GameController : MonoBehaviour
 
     public bool GetLevelPass { get { return levelPass; } }
     public Player GetPlayer { get { return player; } }
+    public GameAnalytics GetGameAnalytic { get { return gameAnalytics; } }
 
     public enum GameState {
 
@@ -46,6 +49,8 @@ public class GameController : MonoBehaviour
         GameReady,
 
     }
+
+    
 
     public GameState gameState;
 
@@ -311,6 +316,8 @@ public class GameController : MonoBehaviour
         FindObjectOfType<Player>().GetComponent<Rigidbody>().velocity = Vector3.zero;
         FindObjectOfType<Player>().RestartPosition();
         mainUI.ResetPointCounter();
+
+        gameAnalytics.LevelRestart(levelsController.GetCurrentLevel);
         
         Platform[] go = FindObjectsOfType<Platform>();
 
@@ -423,12 +430,16 @@ public class GameController : MonoBehaviour
 
         userPointData.CurrentPoint = 0;
 
+        gameAnalytics.StartGame();
+
     }
 
     private void OnDisable()
     {
 
         userPointData.CurrentPoint = 0;
+
+        gameAnalytics.EndGame();
 
     }
 

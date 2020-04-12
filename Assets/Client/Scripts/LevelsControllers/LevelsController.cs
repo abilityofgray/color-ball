@@ -93,11 +93,14 @@ public class LevelsController : MonoBehaviour
             GetCurrentLevelWinPercent(index);
 
             GameController.instance.ResetPointCollectAtCurrentLevel();
-            
+            GameController.instance.GetGameAnalytic.StartLevel(index);
+
             Vector3 playerPos = new Vector3(levelsDict[index].playerPositionAtStart.x, levelsDict[index].playerPositionAtStart.y, 0);
             FindObjectOfType<Player>().transform.position = playerPos;
 
             InitLevelReferenceLampBrokeParticle(index);
+
+            
         }
 
     }
@@ -176,15 +179,19 @@ public class LevelsController : MonoBehaviour
 
             previouseLevel = currentLevel;
 
+            GameController.instance.GetGameAnalytic.LevelComplete(previouseLevel);
+
             currentLevel++;
             GameController.instance.SaveCurrentLevel(currentLevel);
             GameController.instance.ResetPointCollectAtCurrentLevel();
+            
             GetAllPointCountAtLevel();
             levelsDict[previouseLevel].levelComplete = true;
             levelsDict[previouseLevel].gameObject.SetActive(false);
             if (levelsDict.ContainsKey(currentLevel))
             {
 
+                GameController.instance.GetGameAnalytic.StartLevel(currentLevel);
                 GetCurrentLevelWinPercent(currentLevel);
                 levelsDict[currentLevel].LevelInit();
                 levelsDict[currentLevel].gameObject.SetActive(true);

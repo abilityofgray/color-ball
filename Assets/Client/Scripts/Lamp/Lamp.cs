@@ -52,7 +52,7 @@ public class Lamp : MonoBehaviour
     {
 
 
-        LampInitInEditor();
+        //LampInitInEditor();
 
 
 
